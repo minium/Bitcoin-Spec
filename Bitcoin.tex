@@ -1,0 +1,150 @@
+\documentclass[runningheads,a4paper]{llncs}
+
+% ---- Packages ----
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage[neverdecrease]{paralist}
+\usepackage{fancyvrb}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage[LGRgreek]{mathastext}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{chngcntr}
+\usepackage{centernot}
+\usepackage{algorithmic}
+\usepackage{titletoc}
+\usepackage[ruled,noend,noline,slide]{algorithm2e}
+
+
+% ---- Settings ----
+
+% --- Margins ---
+%\usepackage{fullpage}
+%\usepackage[margin=1.25 in]{geometry}
+
+% --- Appendix settings ---
+\usepackage[title,titletoc,header]{appendix}
+\makeatletter
+\newcommand{\@chapapp}{\relax}%
+\makeatother
+
+% --- Running header settings ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{ \markright{#1} }
+\newcommand{\titlemark}{ Bitcoin Protocol Specification }
+\newcommand{\bibmark}{ Bibliography }
+
+\fancyhf{}
+\fancyhead[LE,RO]{\bfseries\thepage}
+\fancyhead[LO]{\bfseries\rightmark} % Odd pages, section name printed
+\fancyhead[RE]{\bfseries\titlemark} % Even pages
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+\addtolength{\headheight}{0.5pt}
+\fancypagestyle{plain}{
+	\fancyhead{}
+	\renewcommand{\headrulewidth}{0pt}
+}
+
+% --- Figure and Table numbering ---
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+
+% --- Custom table settings ---
+\newcolumntype{C}[1]{ >{\centering\arraybackslash\smallskip} m{#1}<{\smallskip} }
+
+\newcommand{\bigcell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\def\tabularxcolumn#1{m{#1}}
+
+% --- Custom list settings ---
+\newlength{\wideitemsep}
+\setlength{\wideitemsep}{.5\itemsep}
+\addtolength{\wideitemsep}{5pt}
+\let\olditem\item
+\renewcommand{\item}{\setlength{\itemsep}{\wideitemsep}\olditem}
+
+
+\begin{document}
+
+% ---- Make a proper TOC despite llncs ----
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+\makeatletter
+\renewcommand*\l@author[2]{}
+\renewcommand*\l@title[2]{}
+\makeatletter
+
+
+
+\title{Bitcoin Developer Specification}
+\subtitle{Working Paper\\Last changes: \today}
+
+\author{Krzysztof Okupski}
+
+\institute{Technische Universiteit Eindhoven, The Netherlands\\
+\email{k.s.okupski@student.tue.nl}}
+
+
+
+%%%----------------------------------------------------------
+\frontmatter
+\maketitle
+
+\clearpage
+\tableofcontents
+%%%----------------------------------------------------------
+
+
+
+%%%----------------------------------------------------------
+\mainmatter         % Main matter
+%%%----------------------------------------------------------
+
+\input{Chapters/Introduction}
+\input{Chapters/Preliminaries}
+
+\clearpage
+\input{Chapters/Architecture}
+
+\clearpage
+\input{Chapters/Ownership}
+
+\clearpage
+\input{Chapters/Blockchain}
+
+
+
+%%%----------------------------------------------------------
+\renewcommand*{\thesection}{\appendixname~\Alph{section}}%
+\addtocontents{toc}{\protect\vskip15pt}
+
+
+\titlecontents{section}
+  [7em]{}
+  {\bfseries\contentslabel{6em}\vspace{6pt}}
+  {\hspace*{0em}}
+  {\titlerule*[0.422pc]{.}\contentspage}
+
+%%%----------------------------------------------------------
+\include{Chapters/Appendices}
+
+
+%%%----------------------------------------------------------
+% Bibliography
+%%%----------------------------------------------------------
+\clearpage
+\fancypagestyle{plain}{% new plain style
+  \fancyhf{}% Clear header/footer
+  \fancyhead[LE,RO]{\bfseries\thepage}
+  \fancyhead[LO]{\bfseries\bibmark} % Odd pages, section name printed
+  \fancyhead[RE]{\bfseries\titlemark}% Right header
+}
+\pagestyle{plain}
+\bibliographystyle{plain}
+\bibliography{literature}
+
+\end{document}
