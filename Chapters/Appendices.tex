@@ -42,7 +42,7 @@ Integers in Bitcoin can be encoded depending on the value in order to save space
 A transaction is defined as ``dust'', if any of the transaction outputs spends more than 1/3rd of its value in transaction fees. More precisely, a transaction is considered ``dust'' if any of its transaction outputs satisfies the inequality
 
 \begin{equation}
-\dfrac{\dfrac{TxFeeRate}{1000}*(TxOutSize + 148)}{nValue} < \dfrac{1}{3}
+\dfrac{\dfrac{TxFeeRate}{1000}*(TxOutSize + 148)}{nValue} > \dfrac{1}{3}
 \end{equation}
 
 \noindent
