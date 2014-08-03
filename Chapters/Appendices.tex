@@ -46,7 +46,7 @@ A transaction is defined as ``dust'', if any of the transaction outputs spends m
 \end{equation}
 
 \noindent
-where {\tt nValue} is the transaction output value, {\tt TxOutSize} is the transaction output size in bytes and {\tt TxFeeRate} is the transaction fee rate in Satoshi per kB. Currently, the default transaction fee rate is set at 1000 Satoshi per kB and a typical transaction output size of 34 bytes, thus resulting in a required transaction output value of at least 546 Satoshi.
+where {\tt nValue} is the transaction output value, {\tt TxOutSize} is the transaction output size in bytes and {\tt TxFeeRate} is the transaction fee rate in Satoshi per kB. Given that the default transaction fee rate currently lies at 1000 Satoshi per kB and that the size of a typical transaction output is 34 bytes, the resulting minimal transaction output value is 546 Satoshi.
 
 
 %\clearpage
