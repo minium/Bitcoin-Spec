@@ -42,7 +42,7 @@ Integers in Bitcoin can be encoded depending on the value in order to save space
 The transaction fees \emph{TxFee} in Satoshi are calculated from the transaction size \emph{TxSize} in bytes and the transaction fee rate \emph{TxFeeRate} in Satoshi per kB as follows:
 
 \begin{equation}
-TxFee = \dfrac{TxFeeRate}{1000} * \ceil[\bigg]{\dfrac{TxSize}{1024}}
+TxFee = TxFeeRate * \ceil[\bigg]{\dfrac{TxSize}{1024}}
 \end{equation}
 
 \subsubsection*{Dust Transactions}~\\
