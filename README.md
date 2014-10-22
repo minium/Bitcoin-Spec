@@ -6,7 +6,8 @@ Introduction
 
 The Bitcoin Developer Reference is designed to supply Bitcoin enthusiasts
 and developers with technical background on the inner workings of Bitcoin.
-Note that it does neither claims to be complete nor correct.
+Note that although it has been reviewed by several Bitcoin experts, it
+neither claims to be complete nor correct.
 
 
 License
