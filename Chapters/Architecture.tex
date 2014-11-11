@@ -1,8 +1,8 @@
 \section{Architecture} \label{sec:Architecture}
-Central to Bitcoin's architecture is a public ledger called the \emph{blockchain}, which stores all processed \emph{transactions} in chronological order. Transactions are processed by a loosely-organized network of \emph{miners} in a process called \emph{mining} (see Sect. \ref{sec:Mining}). In it the miner creates a block with a set of unprocessed transactions and attempts to solve a proof-of-work puzzle (see Sect. \ref{sec:ProofOfWork}). Once a valid solution has been found, the block including the solution is published throughout the network and accepted into the blockchain. In this section the structure of blocks and transactions will be discussed in detail. Note that the following description is based on the Bitcoin source code \cite{BitcoinSourceCode} and the Bitcoin Protocol Specification on Wikipedia \cite{Wikipedia_ProtocolSpec}. Furthermore, all data types denoted in the diagrams are explained in detail in \ref{sec:DataTypes}.
+Central to Bitcoin's architecture is a public ledger called the \emph{blockchain}, which stores all processed \emph{transactions} in chronological order. Transactions are processed by a loosely-organized network of \emph{miners} in a process called \emph{mining} (see Sect. \ref{sec:Mining}). In it the miner creates a \emph{block} with a set of unprocessed transactions and attempts to solve a \emph{proof-of-work puzzle} (see Sect. \ref{sec:ProofOfWork}). Once a valid solution has been found, the block including the solution is published throughout the network and accepted into the blockchain. In this section the structure of blocks and transactions will be discussed in detail. Note that the following description is based on the Bitcoin source code \cite{BitcoinSourceCode} and the Bitcoin Protocol Specification on Wikipedia \cite{Wikipedia_ProtocolSpec}. Furthermore, all data types denoted in the diagrams are explained in detail in \ref{sec:DataTypes}.
 
 \subsection{Blocks} \label{sec:Blocks}
-Each block is composed of a header and a payload. The header stores the current block header version (\textit{nVersion}), a reference to the previous block (\textit{HashPrevBlock}), the root node of the Merkle tree (\textit{HashMerkleRoot}), a timestamp (\textit{nTime}), a target value  (\textit{nBits}) and a nonce (\textit{nNonce}). Finally, the payload stores transactions included in the block.
+Each block is composed of a header and a payload. The header stores the current block header version (\textit{nVersion}), a reference to the previous block (\textit{HashPrevBlock}), the root node of the Merkle tree (\textit{HashMerkleRoot}), a timestamp (\textit{nTime}), a target value  (\textit{nBits}) and a nonce (\textit{nNonce}). Finally, the payload stores the number of transactions (\textit{\#vtx}) and the vector of transactions (\textit{vtx}) included in the block.
 
 \begin{table}[ht!]
 	\begin{tabularx}{\textwidth}{ | m{70pt} | >{\centering} m{60pt} | X |}
@@ -86,7 +86,7 @@ The time field stores the timestamp in UNIX format denoting the approximate bloc
 
 
 \subsubsection*{nBits}
-The \textit{nBits} field stores a compact representation of a target value \emph{T}, which is utilized in the proof-of-work puzzle (see Sect. \ref{sec:Mining}). The target value is a 256 bit long number, whereas its corresponding compact representation is only 32 bits long and thus encoded with only 8 hex digits. The target value can be derived from its compact hexadecimal representation $\mathit{0xh_{0}h_{1}h_{2}h_{3}h_{4}h_{5}h_{6}h_{7}}$ with the formula:
+The \textit{nBits} field stores a compact representation of a target value \emph{T}, which is utilized in the proof-of-work puzzle (see Sect. \ref{sec:Mining}). The target value is a 256 bit long number, whereas its corresponding compact representation is only 32 bits long and thus encoded with only 8 hex digits. The target value can be derived from its compact hexadecimal representation $\mathit{0xh_{0}h_{1}h_{2}h_{3}h_{4}h_{5}h_{6}h_{7}}$ with the formula
 \begin{equation}
 0xh_{2}h_{3}h_{4}h_{5}h_{6}h_{7} * 2^{8*(0xh_{0}h_{1} - 3)}
 \end{equation}
@@ -188,9 +188,9 @@ the signature script field (\textit{scriptSig}) itself and a transaction sequenc
 
 \begin{itemize}
 \item[-] (\textit{hash},\textit{n})~\\
-A previous output is uniquely identified by the tuple (\textit{hash},\textit{n}). \textit{hash}, also referred to as the transaction ID (\textit{TxId}), is computed as a double-SHA256 hash of the raw transaction:
+A previous output is uniquely identified by the tuple (\textit{hash},\textit{n}). \textit{hash}, also referred to as the transaction ID (\textit{TxID}), is computed as a double-SHA256 hash of the raw transaction:
 \begin{equation}
-TxId = SHA256^{2}(Transaction)
+TxID = SHA256^{2}(Transaction)
 \end{equation}
 
 Hence, whilst a transaction is uniquely identified by its hash, the specific output within that transaction is identified by the output index \textit{n}. An example is given below in Fig. \ref{fig:PrevOut}.

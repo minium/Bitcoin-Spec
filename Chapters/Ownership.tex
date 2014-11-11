@@ -1,8 +1,9 @@
 \section{Bitcoin ownership} \label{sec:BitcoinOwnership}
 
 \subsection{General} \label{sec:OwnershipGeneral}
-Bitcoin utilizes two cryptographic primitives to realize a secure and decentralized transaction authorization system. Firstly, it employs asymmetric cryptography for (i) identification and (ii) authentication of recipients, as well as to (iii) ensure integrity of regular transactions. More precisely, the public key of a public/private keypair is used to identify a particular recipient, whereas the private key is used to create a signature for both transaction authentication and integrity.
+Bitcoin utilizes two cryptographic primitives to realize a secure and decentralized transaction authorization system. Firstly, it employs asymmetric cryptography for (i) identification and (ii) authentication of recipients, as well as to (iii) ensure integrity of regular transactions. More precisely, the public key of a public/private keypair is used to identify a particular recipient, whereas the private key is used to create a signature for both transaction authentication and integrity.~\\
 
+\noindent
 Secondly, the proof-of-work protocol is used to (i) regulate coin supply, (ii) reward miners for transaction processing and (iii) ensure block integrity. In the mining process all regular transactions of users and a special coinbase transaction created by the miner are processed by solving the proof-of-work problem. It is important to note that while the authenticity and integrity of regular transactions is ensured by the previously discussed signature scheme, the integrity of coinbase transactions is assured by the proof-of-work puzzle. In the following the exact application of these primitives will be described with the help of Fig. \ref{fig:TransactionChain}.
 
 \vspace{-10pt}
@@ -33,6 +34,7 @@ Script is a stack-based, Turing-incomplete language designed specifically for th
 \noindent
 For a given transaction, each transaction input is verified by first evaluating \textit{scriptSig}, then copying the resulting stack and finally evaluating \textit{scriptPubkey} of the referenced transaction output. If during the evaluation no failure is triggered and the final top stack element yields true, then the ownership has been successfully verified.~\\
 
+\noindent
 Although Script is very comprehensive and allows one to construct intricate conditions under which coins can be claimed, much of its functionality is currently disabled in the reference implementation and only a restricted set of standard script templates is accepted. These are \textit{Pay-to-Pubkey} (P2PK), \textit{Pay-to-PubkeyHash} (P2PKH), \textit{Pay-to-ScriptHash} (P2SH), \textit{Multisig} and \textit{Nulldata}. In the next section, the structure of these standard transaction types will be discussed.~\\
 
 
@@ -730,15 +732,20 @@ scriptSig:
 \vspace{-10pt}
 
 \noindent
-Unlike all other standard transaction types, a Nulldata transaction does not specify any particular recipient. The Bitcoin amount associated with a Nulldata transaction can be claimed by miners on a first-come first-served basis, the same way transaction fees are claimed. The motivation behind it is twofold. Firstly, it plays a role in keeping the database of spendable outputs maintained by every wallet, referred to as the \emph{UTXO set}, clean. Any transaction output with an \texttt{OP\_RETURN} operation in it is provably unspendable and thus easily detectable. Secondly, due to its optional data field of 40 bytes, it allows to append arbitrary data with each transaction for various purposes. Note, however, that in order to prevent blockchain flooding only one \texttt{OP\_RETURN} output is permitted in each transaction.
+Unlike all other standard transaction types, a Nulldata transaction does not specify in the challenge script any recipients and does not have a corresponding response script. Another characteristic of it is that it does not adhere to the dust transaction rule (see Sect. \ref{sec:Calculations}) and therefore the transaction output value can be set to zero.~\\
+
+\noindent
+The purpose of Nulldata transactions is to allow inclusion of arbitrary data in transactions in a controlled fashion. For this reason these transactions possess an optional field in which up to 40 bytes of data can be stored. Note, however, that in order to prevent blockchain flooding only one output of this type is permitted in a transaction.
+
 
 \clearpage
 \subsection{Bitcoin Addresses} \label{sec:BitcoinAddresses}
-A Bitcoin address is a unique, 27-34 alphanumeric characters long identifier that can be used as a destination for Bitcoin payments. There are currently two different types of Bitcoin addresses in existence - \emph{Pay-to-PubkeyHash addresses} and \emph{Pay-to-ScriptHash addresses} - which are used in conjunction with their corresponding transaction type. In the following both will be described in detail.
+A Bitcoin address is a unique, 27-34 alphanumeric characters long identifier that can be used as a destination for Bitcoin payments. There are currently two different types of Bitcoin addresses in existence, \emph{Pay-to-PubkeyHash} and \emph{Pay-to-ScriptHash}, which are used in conjunction with their corresponding transaction type. In the following both will be described in detail.
 
 \subsubsection{Pay-to-PubkeyHash Address} \label{sec:Address-P2PKH}
-Essentially, a Pay-to-PubkeyHash address is a hash of the public key portion of the public-private ECDSA keypair with a built-in checksum. Schematics of how it is calculated can be seen in Fig. \ref{fig:BitcoinAddress-P2PKH}.
+Essentially, a Pay-to-PubkeyHash address is a hash of the public key portion of the public-private ECDSA keypair with a built-in checksum. Schematics of how it is calculated can be seen in Fig. \ref{fig:BitcoinAddress-P2PKH}.~\\
 
+\noindent
 First, the EC public key is hashed using SHA256 and RIPEMD160. The resulting structure is referred to as \textit{pubkeyHash}. Next, a constant version byte is prepended to \textit{pubkeyHash}. A checksum is built over it by applying a double-SHA256 hash and truncating the result to the first 4 bytes. The checksum is then appended. Finally, the result is converted into a human-readable string using Base58 encoding \cite{Base58}. The final result is a \emph{P2PKH address}.
 
 \begin{figure}[htbp]
@@ -753,8 +760,9 @@ First, the EC public key is hashed using SHA256 and RIPEMD160. The resulting str
 
 
 \subsubsection{Pay-to-ScriptHash Address} \label{sec:Address-P2SH}
-A Pay-to-ScriptHash address on the other hand, is a hash of the redemption script \textit{serializedScript}, with a built-in checksum. Schematics of how it is calculated can be seen in Fig. \ref{fig:BitcoinAddress-P2SH}.
+A Pay-to-ScriptHash address on the other hand, is a hash of the redemption script \textit{serializedScript}, with a built-in checksum. Schematics of how it is calculated can be seen in Fig. \ref{fig:BitcoinAddress-P2SH}.~\\
 
+\noindent
 First, the redemption script is hashed using SHA256 and RIPEMD160. The resulting structure is referred to as \textit{scriptHash}. Next, a constant version byte is prepended to \textit{scriptHash}. A checksum is built over it by applying a double-SHA256 hash and truncating the result to the first 4 bytes. The checksum is then appended. Finally, the result is converted into a human-readable string using Base58 encoding \cite{Base58}. The final result is a \emph{P2SH address}.
 
 \begin{figure}[htbp]

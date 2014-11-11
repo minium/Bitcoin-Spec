@@ -1,10 +1,12 @@
 \section{Blockchain} \label{sec:Blockchain}
 
 \subsection{Structure} \label{sec:BlockchainStructure}
-The blockchain is a record of all transactions that have occured in the Bitcoin system and is shared by every node in it. Its main purpose is to infer spending for all transaction outputs. The novelty of Bitcoin lies, among other things, in how the blockchain is structured in order to guarantee chronological ordering of transactions and prevent double-spending in a distributed network.
+The blockchain is a record of all transactions that have occured in the Bitcoin system and is shared by every node in it. Its main purpose is to infer spending for all transaction outputs. The novelty of Bitcoin lies, among other things, in how the blockchain is structured in order to guarantee chronological ordering of transactions and prevent double-spending in a distributed network.~\\
 
-As described in Sect. \ref{sec:Blocks}, every block in the blockchain refers to the hash of a previous block. This imposes a chronological order on blocks and therefore transactions as well, since it is not possible to create a valid hash of the previous block header prior to its existence.
+\noindent
+As described in Sect. \ref{sec:Blocks}, every block in the blockchain refers to the hash of a previous block. This imposes a chronological order on blocks and therefore transactions as well, since it is not possible to create a valid hash of the previous block header prior to its existence.~\\
 
+\noindent
 Furthermore, each block includes the solution to a proof-of-work puzzle of a certain difficulty. The computational power involved in solving the proof-of-work puzzle for each block is used as a voting scheme to enable all nodes in the network to collectively agree on a version of the blockchain. Nodes collectively agree on the blockchain that involved the highest accumulated computational effort to be created. Thus, modifying a block in the chain would require an adversary to recompute proof-of-work puzzles of equal or greater computational effort than the ones from that block up until the newest block. In order to achieve that, the adversary would have to computationally outperform the majority of the network, which is considered infeasible.
 \begin{figure}[ht!]
  \centering
@@ -47,4 +49,4 @@ H \leq T
 \end{enumerate}
 
 \noindent
-This process is repeated for various values of \textit{nNonce} and \textit{coinbase} until a valid solution is found. Typically, for efficiency reasons, all possible values of the nonce field are evaluated before changes to the coinbase field are made.
+This process is repeated for various nonce and coinbase values until a valid solution is found. Typically, for efficiency reasons, all possible values of the nonce field are evaluated before changes to the coinbase field are made.
