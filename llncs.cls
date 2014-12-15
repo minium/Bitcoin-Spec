@@ -648,7 +648,7 @@ to0pt{\kern0.55\wd0\vrule height0.45\ht0\hss}\box0}}}}
 \def\listoffigures{\@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn
  \fi\section*{\listfigurename\@mkboth{{\listfigurename}}{{\listfigurename}}}
  \@starttoc{lof}\if@restonecol\twocolumn\fi}
-\def\l@figure{\@dottedtocline{1}{0em}{1.5em}}
+\def\l@figure{\@dottedtocline{1}{0em}{2.5em}}
 
 \def\listoftables{\@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn
  \fi\section*{\listtablename\@mkboth{{\listtablename}}{{\listtablename}}}
@@ -671,7 +671,7 @@ to0pt{\kern0.55\wd0\vrule height0.45\ht0\hss}\box0}}}}
 \ifx\citeauthoryear\undefined
 \renewenvironment{thebibliography}[1]
      {\section*{\refname}
-      \def\@biblabel##1{##1.}
+      \def\@biblabel##1{[##1]}
       \small
       \list{\@biblabel{\@arabic\c@enumiv}}%
            {\settowidth\labelwidth{\@biblabel{#1}}%

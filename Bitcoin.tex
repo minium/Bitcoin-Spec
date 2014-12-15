@@ -1,40 +1,43 @@
-\documentclass[runningheads,a4paper]{llncs}
+\documentclass[a4paper,runningheads,11pt]{llncs}
 
 % ---- Packages ----
-\usepackage{makeidx}
-\usepackage{graphicx}
-\usepackage[neverdecrease]{paralist}
-\usepackage{fancyvrb}
-\usepackage{multirow}
-\usepackage{tabularx}
-\usepackage{url}
-\usepackage{amsmath}
-\usepackage[LGRgreek]{mathastext}
-\usepackage{enumitem}
-\usepackage{array}
-\usepackage{chngcntr}
-\usepackage{centernot}
-\usepackage{algorithmic}
+\usepackage[UKenglish]{babel}	% Language
+\usepackage{makeidx}			% Indexing
+\usepackage{fancyhdr}			% Running header
+\usepackage{titletoc}			% Table of contents
+\usepackage{etex}
+\usepackage[left=3.2cm,right=3.2cm,top=3.7cm,bottom=4cm]{geometry}	% Margin
+
+\usepackage{graphicx}			% Figures
+\usepackage{chngcntr}			% Figure and table counter
+\usepackage{tabularx}			% Tabular
+\usepackage{multirow}			% Multirow
+\usepackage{fancyvrb}			% Verbatim
+\usepackage{enumitem}			% Customization for enumerate and itemize
+\usepackage{url}				% Url
+
+\usepackage{acronym}			% Acronyms
 \usepackage{mathtools}
+\usepackage{amsmath}			% Math
+\usepackage{amsfonts}			% Math fonts
+\usepackage[ruled,noend,noline,slide]{algorithm2e}	% Algorithm
+\usepackage[title,titletoc,header]{appendix}		% Appendix
+
+
+%%%----------------------------------------------------------
+% Settings
+%%%----------------------------------------------------------
+
+% --- Math functions ---
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
-\usepackage{titletoc}
-\usepackage[ruled,noend,noline,slide]{algorithm2e}
-
-
-% ---- Settings ----
-
-% --- Margins ---
-%\usepackage{fullpage}
-%\usepackage[margin=1.25 in]{geometry}
 
 % --- Appendix settings ---
-\usepackage[title,titletoc,header]{appendix}
 \makeatletter
 \newcommand{\@chapapp}{\relax}%
 \makeatother
 
 % --- Running header settings ---
-\usepackage{fancyhdr}
 \pagestyle{fancy}
 \renewcommand{\sectionmark}[1]{ \markright{#1} }
 \newcommand{\titlemark}{ Bitcoin Developer Reference }
@@ -81,6 +84,9 @@
 \makeatletter
 
 
+%%%----------------------------------------------------------
+% Front page definition
+%%%----------------------------------------------------------
 
 \title{Bitcoin Developer Reference}
 \subtitle{Working Paper\\Last changes: \today}
@@ -103,10 +109,11 @@
 
 
 %%%----------------------------------------------------------
-\mainmatter         % Main matter
+\mainmatter
 %%%----------------------------------------------------------
 
 \input{Chapters/Introduction}
+
 \input{Chapters/Preliminaries}
 
 \clearpage
@@ -118,12 +125,16 @@
 \clearpage
 \input{Chapters/Blockchain}
 
+\clearpage
+\input{Chapters/Acknowledgements}
+
 
 
 %%%----------------------------------------------------------
-\renewcommand*{\thesection}{\appendixname~\Alph{section}}%
+% Appendix formatting
+%%%----------------------------------------------------------
 \addtocontents{toc}{\protect\vskip15pt}
-
+\renewcommand*{\thesection}{\appendixname~\Alph{section}}
 
 \titlecontents{section}
   [7em]{}
@@ -132,6 +143,7 @@
   {\titlerule*[0.422pc]{.}\contentspage}
 
 %%%----------------------------------------------------------
+\clearpage
 \include{Chapters/Appendices}
 
 
@@ -139,14 +151,14 @@
 % Bibliography
 %%%----------------------------------------------------------
 \clearpage
-\fancypagestyle{plain}{% new plain style
-  \fancyhf{}% Clear header/footer
+\fancypagestyle{plain}{ % new plain style
+  \fancyhf{} % Clear header/footer
   \fancyhead[LE,RO]{\bfseries\thepage}
   \fancyhead[LO]{\bfseries\bibmark} % Odd pages, section name printed
-  \fancyhead[RE]{\bfseries\titlemark}% Right header
+  \fancyhead[RE]{\bfseries\titlemark} % Right header
 }
 \pagestyle{plain}
-\bibliographystyle{plain}
+\bibliographystyle{ieeetr}
 \bibliography{literature}
 
 \end{document}
