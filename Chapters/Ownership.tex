@@ -4,12 +4,12 @@
 Bitcoin utilizes two cryptographic primitives to realize a secure and decentralized transaction authorization system. Firstly, it employs asymmetric cryptography for (i) identification and (ii) authentication of recipients, as well as to (iii) ensure integrity of regular transactions. More precisely, the public key of a public/private keypair is used to identify a particular recipient, whereas the private key is used to create a signature for both transaction authentication and integrity.~\\
 
 \noindent
-Secondly, the proof-of-work protocol is used to (i) regulate coin supply, (ii) reward miners for transaction processing and (iii) ensure block integrity. In the mining process all regular transactions of users and a special coinbase transaction created by the miner are processed by solving the proof-of-work problem. It is important to note that while the authenticity and integrity of regular transactions is ensured by the previously discussed signature scheme, the integrity of coinbase transactions is assured by the proof-of-work puzzle. In the following the exact application of these primitives will be described with the help of Fig. \ref{fig:TransactionChain}.
+Secondly, the proof of work protocol is used to (i) regulate coin supply, (ii) reward miners for transaction processing and (iii) ensure block integrity. In the mining process all regular transactions of users and a special coinbase transaction created by the miner are processed by solving the proof of work problem. It is important to note that while the authenticity and integrity of regular transactions is ensured by the previously discussed signature scheme, the integrity of coinbase transactions is assured by the proof of work puzzle. In the following the exact application of these primitives will be described with the help of Fig. \ref{fig:TransactionChain}.
 
-\vspace{-10pt}
+\vspace{-5pt}
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.9]{images/Ownership.pdf}
+\includegraphics[scale=1]{Images/Ownership.pdf}
 
 \caption{Bitcoin Transaction Chain}
 \label{fig:TransactionChain}
@@ -17,7 +17,7 @@ Secondly, the proof-of-work protocol is used to (i) regulate coin supply, (ii) r
 \vspace{-10pt}
 
 \noindent
-To begin with, Bitcoins are introduced into the system with coinbase transactions (see Sect. \ref{sec:CoinbaseTransactions}). In it the miner specifies one or more transaction outputs (\textit{vout}), defining the amounts and destinations to which the freshly created coins are to be transferred. He identifies each destination by including a public key or a derived form of it in the public key script field (\textit{scriptPubkey}). As discussed above, the integrity of the coinbase transaction is ensured by the computational hardness of the proof-of-work problem.~\\
+To begin with, Bitcoins are introduced into the system with coinbase transactions (see Sect. \ref{sec:CoinbaseTransactions}). In it the miner specifies one or more transaction outputs (\textit{vout}), defining the amounts and destinations to which the freshly created coins are to be transferred. He identifies each destination by including a public key or a derived form of it in the public key script field (\textit{scriptPubkey}). As discussed above, the integrity of the coinbase transaction is ensured by the computational hardness of the proof of work problem.~\\
 
 \noindent
 Next, when the miner intends to spend his reward, he creates a regular transaction, references it to the specific output of the coinbase transaction and provides a signature in the signature script field (\textit{scriptSig}). Since the signature is computed over the complete transactions (see Sect. \ref{sec:Signatures}), control of the private key corresponding to the referenced public key is proven and integrity of the transaction is guaranteed. This chain is continued indefinitely and logged publicly in the blockchain to keep track of all Bitcoins within the system at all times.
@@ -110,6 +110,7 @@ Final state after evaluating \textit{scriptSig}. \\ \hline
 \caption{Pay-to-Pubkey \textit{scriptSig} Execution}
 \label{tab:P2Pub1}
 
+\vspace{15pt}
 
 \begin{tabular}{| m{95pt} | m{145pt} | m{100pt} |}
 \hline
@@ -167,12 +168,12 @@ Final state after evaluating \textit{scriptPubkey}. \\ \hline
 \end{minipage}
 \end{table}
 
-\noindent
+\clearpage
 \subsubsection{Pay-to-PubkeyHash (P2PKH)} \label{sec:P2PKH}
 The structure of the challenge and response scripts of a Pay-to-PubkeyHash transaction can be seen below in Fig. \ref{fig:P2PubHashStructure}.
 
 \vspace{-10pt}
-\begin{figure}[htbp]
+\begin{figure}[ht!]
 
 \begin{Verbatim}[fontsize==\relsize{-4}, frame=single]  
 scriptPubkey: OP_DUP OP_HASH160 <pubkeyHash> OP_EQUALVERIFY OP_CHECKSIG
@@ -242,7 +243,6 @@ Final state after evaluating \textit{scriptSig}. \\ \hline
 \label{tab:P2PubHash1}
 
 \vspace{15pt}
-
 
 \centering
 \begin{tabular}{| m{95pt} | m{145pt} | m{100pt} |}
@@ -403,6 +403,7 @@ scriptSig:    <signatures> {<pubkey> OP_CHECKSIG}
 \noindent
 Due to the nested nature of this transaction type, the script evaluation requires an additional validation step. First, it is verified whether the redemption script (\textit{serializedScript}) is consistent with the redemption script hash (\textit{scriptHash}) and then the transaction is evaluated using the redemption script as \textit{scriptPubkey}. The evaluation is depicted in Table \ref{tab:P2ScriptHash1}, \ref{tab:P2ScriptHash2} and \ref{tab:P2ScriptHash3}.
 
+\clearpage
 
 \begin{table}[!ht]  
 \begin{minipage}{\textwidth}
@@ -529,44 +530,43 @@ Final state after evaluating \textit{scriptPubkey}.\\ \hline
 \end{minipage}
 \end{table}
 
-\vspace{-30pt}
+\vspace{-10pt}
 
-\begin{table}[!ht]  
-\begin{minipage}{\textwidth}
+\noindent
 For the additional validation step the stack after \textit{scriptSig} execution (see Table \ref{tab:P2ScriptHash1}) is copied, the top stack element is popped and used as the script. The state now resembles the beginning of a standard Pay-to-Pubkey transaction evaluation (see Table \ref{tab:P2Pub2}).
 
-\vspace{20pt}
-
-\centering
-\begin{tabular}{| m{105pt} | m{135pt} | m{100pt} |}
-\hline
-\textbf{Stack} & \textbf{Remaining Script} & \textbf{Description} \\ \hline \hline
-
-\vspace{8pt}
+\begin{table}[!h]  
+	
+	\centering
+	\begin{tabular}{| m{105pt} | m{135pt} | m{100pt} |}
+		\hline
+		\textbf{Stack} & \textbf{Remaining Script} & \textbf{Description} \\ \hline \hline
+		
+		\vspace{8pt}
 \begin{BVerbatim}[fontsize==\relsize{-4}]
 <signature>
 \end{BVerbatim} 
-\vspace{4pt}
-&
-\vspace{8pt}
+		\vspace{4pt}
+		&
+		\vspace{8pt}
 \begin{BVerbatim}[fontsize==\relsize{-4}]
 <pubkey> OP_CHECKSIG
 \end{BVerbatim} 
-\vspace{4pt}
-&
-Initial state of supplementary validation step.\\ \hline
-
-\dots & \dots & \dots \\ \hline
-
-\end{tabular}
+		\vspace{4pt}
+		&
+		Initial state of supplementary validation step.\\ \hline
+		
+		\dots & \dots & \dots \\ \hline
+	\end{tabular}
+	
 \vspace{5pt}
 \caption{Pay-to-ScriptHash Supplementary Validation}
 \label{tab:P2ScriptHash3}
-\end{minipage}
 \end{table}
 
+
 \clearpage
-\subsubsection{Multisig}
+\subsubsection{Multisig} \label{sec:Multisig}
 The structure of the challenge and response scripts of a Multisig transaction is depicted below in Fig. \ref{fig:P2Multisig}.
 
 \vspace{-10pt}
@@ -713,7 +713,7 @@ Final state after evaluating \textit{scriptPubkey}.\\ \hline
 \end{minipage}
 \end{table}
 
-
+\clearpage
 \subsubsection{Nulldata}
 The structure of the challenge and response scripts of a Nulldata transaction is depicted below in Fig. \ref{fig:Nulldata}.
 
@@ -732,7 +732,7 @@ scriptSig:
 \vspace{-10pt}
 
 \noindent
-Unlike all other standard transaction types, a Nulldata transaction does not specify in the challenge script any recipients and does not have a corresponding response script. Another characteristic of it is that it does not adhere to the dust transaction rule (see Sect. \ref{sec:Calculations}) and therefore the transaction output value can be set to zero.~\\
+Unlike all other standard transaction types, a Nulldata transaction does not specify in the challenge script any recipients and does not have a corresponding response script. Another characteristic of it is that it does not adhere to the dust transaction rule (see \ref{sec:Formulas}) and therefore the transaction output value can be set to zero.~\\
 
 \noindent
 The purpose of Nulldata transactions is to allow inclusion of arbitrary data in transactions in a controlled fashion. For this reason these transactions possess an optional field in which up to 40 bytes of data can be stored. Note, however, that in order to prevent blockchain flooding only one output of this type is permitted in a transaction.
@@ -751,8 +751,9 @@ First, the EC public key is hashed using SHA256 and RIPEMD160. The resulting str
 \begin{figure}[htbp]
 
 \centering
-\includegraphics[scale=0.8]{images/BitcoinAddress-P2PKH.pdf}
+\includegraphics[scale=0.9]{Images/BitcoinAddress-P2PKH.pdf}
 
+\vspace{10pt}
 \caption{P2PKH Address Computation}
 \label{fig:BitcoinAddress-P2PKH}
 \end{figure}
@@ -768,8 +769,9 @@ First, the redemption script is hashed using SHA256 and RIPEMD160. The resulting
 \begin{figure}[htbp]
 
 \centering
-\includegraphics[scale=0.8]{images/BitcoinAddress-P2SH.pdf}
+\includegraphics[scale=0.9]{Images/BitcoinAddress-P2SH.pdf}
 
+\vspace{10pt}
 \caption{P2SH Address Computation}
 \label{fig:BitcoinAddress-P2SH}
 \end{figure}
@@ -780,13 +782,13 @@ First, the redemption script is hashed using SHA256 and RIPEMD160. The resulting
 \subsection{Signatures} \label{sec:Signatures}
 Signatures are a central cryptographic primitive in Bitcoin and play a significant role in transaction authorization (see Sect. \ref{sec:OwnershipGeneral}). In a regular transaction, a signature is included in the signature script field (\textit{scriptSig}) of every transaction input to prove that the referenced transaction output can be rightfully spent by the claimant.
 
-\subsubsection{Hash Types}
+\subsection*{Hash Types}
 Signatures in Bitcoin are of a specific type, referred to as \emph{hash type}, that determines which parts of the transaction are covered by it. This allows the signer to selectively choose which transaction parts should be protected and which parts can be modified by others. Three base signature hash types available, the default type \emph{SIGHASH\_ALL}, \emph{SIGHASH\_SINGLE} and \emph{SIGHASH\_NONE}. Additionally, a special type modifier called \emph{SIGHASH\_ANYONECANPAY} can be applied in conjunction with one of the three base types.
 
 \vspace{-5pt}
 \begin{figure}[ht!]
  \centering
- \includegraphics[scale=0.9]{images/Transaction2In2Out.pdf}
+ \includegraphics[scale=0.975]{Images/Transaction2In2Out.pdf}
  \caption{Signature Computation - Initial State} \label{fig:Signature-InitState}
 \end{figure}
 \vspace{-5pt}
@@ -794,13 +796,13 @@ Signatures in Bitcoin are of a specific type, referred to as \emph{hash type}, t
 \noindent
 In the following the various signature types will be discussed in detail. The depiction in Fig. \ref{fig:Signature-InitState} shows the initial state of a sample transaction which will be used to illustrate the process. The signature will be performed for the first transaction input of the transaction \emph{TxNew}, which references the first output of a past transaction \emph{TxPrev}.
 
-
-\subsubsection*{SIGHASH\_ALL}
+\clearpage
+\subsection*{SIGHASH\_ALL}
 The default signature hash type \emph{SIGHASH\_ALL} represents the simplest of the three base types. It signs the complete transaction, including all the transactions inputs and outputs, with the exception of the signature script fields. The coverage of the signature is illustrated below in Fig. \ref{fig:SigHash-All} with grey fields.
 
 \begin{figure}[ht!]
  \centering
- \includegraphics[scale=0.9]{images/SIGHASH_ALL.pdf}
+ \includegraphics[scale=0.975]{Images/SIGHASH_ALL.pdf}
  \caption{Signature Computation - SIGHASH\_ALL} \label{fig:SigHash-All}
 \end{figure}
 
@@ -813,12 +815,12 @@ Before the signature is computed, several temporary changes are made to the tran
 
 
 \clearpage
-\subsubsection*{SIGHASH\_SINGLE}
+\subsection*{SIGHASH\_SINGLE}
 In the second signature hash type \emph{SIGHASH\_SINGLE} all transaction inputs and the transaction output corresponding to the currently signed input is signed. The coverage of the signature is illustrated below in Fig. \ref{fig:SigHash-Single} with grey fields.
 
 \begin{figure}[ht!]
  \centering
- \includegraphics[scale=0.9]{images/SIGHASH_SINGLE.pdf}
+ \includegraphics[scale=0.975]{Images/SIGHASH_SINGLE.pdf}
  \caption{Signature Computation - SIGHASH\_SINGLE} \label{fig:SigHash-Single}
 \end{figure}
 
@@ -832,17 +834,17 @@ Before the signature is computed, several temporary changes are made to the tran
 \item[-] The sequence number is set to zero.
 \end{itemize}
 \item The number of transaction outputs is set to the currently signed transaction input index plus one.
-\item All transaction outputs up until the to be signed one are emptied.
+\item All transaction outputs up to the currently signed one are emptied.
 \end{enumerate}
 
 
 \clearpage
-\subsubsection*{SIGHASH\_NONE}
+\subsection*{SIGHASH\_NONE}
 In the third signature hash type \emph{SIGHASH\_NONE} all transaction inputs and none of the transaction outputs are signed. The coverage of the signature is illustrated below in Fig. \ref{fig:SigHash-None} with grey fields.
 
 \begin{figure}[ht!]
  \centering
- \includegraphics[scale=0.9]{images/SIGHASH_NONE.pdf}
+ \includegraphics[scale=0.975]{Images/SIGHASH_NONE.pdf}
  \caption{Signature Computation - SIGHASH\_NONE} \label{fig:SigHash-None}
 \end{figure}
 
@@ -861,28 +863,30 @@ Before the signature is computed, several temporary changes are made to the tran
 
 
 \clearpage
-\subsubsection*{SIGHASH\_ANYONECANPAY}
+\subsection*{SIGHASH\_ANYONECANPAY}
 The \emph{SIGHASH\_ANYONECANPAY} modifier is used in conjunction with a base type and affects the signature coverage of transaction inputs. It is used to only cover the currently signed input by the signature. For example, the transaction depicted in Fig. \ref{fig:SigHash-Anyone} illustrates that the second transaction input is excluded from the signature.
 
 \begin{figure}[ht!]
  \centering
- \includegraphics[scale=0.9]{images/SIGHASH_ANYONECANPAY.pdf}
+ \includegraphics[scale=0.975]{Images/SIGHASH_ANYONECANPAY.pdf}
  \caption{Signature Computation - SIGHASH\_ALL\textbar SIGHASH\_ANYONECANPAY} \label{fig:SigHash-Anyone}
 \end{figure}
 
 \noindent
-Before the signature is computed, in addition to the changes performed by the base hash type, the following temporary changes are made:
+In addition to the changes performed by the base hash type, the following temporary changes are made before the signature is computed:
 \begin{enumerate}[label=\alph*), leftmargin=1cm]
 \item The number of transaction inputs is set to one.
 \item All transaction inputs, except for the currently signed one, are removed.
 \end{enumerate}
 
 \clearpage
-\subsubsection{Finalization}
-Once the transaction type has been chosen and the hash type dependent modifications have been applied, the actual signature is computed. This is done as follows - firstly, the hash type is appended to the transaction, then the signature itself is computed and finally the hashtype is appended to it. The ECDSA signature is computed using double-SHA256 and the secp256k1 elliptic curve as parameters. The appended hashtype signifies the verifying party what hash type was applied.
+\subsection*{Finalization}
+Once the transaction type has been chosen and the hash type dependent modifications have been applied, the actual signature is computed. This is done as follows - first, the hash type is appended to the transaction, then the signature itself is computed and finally the hashtype is appended to it. The ECDSA signature is computed using double-SHA256 and the secp256k1 elliptic curve as parameters. The appended hashtype signals the verifying party what hash type was applied.
 
 \begin{figure}[ht!]
  \centering
- \includegraphics[scale=0.8]{images/Signature-Finalization.pdf}
+ \includegraphics[scale=0.9]{Images/Signature-Finalization.pdf}
+ 
+ \vspace{5pt}
  \caption{Signature Computation - Finalization} \label{fig:SigFin-SighashAll}
 \end{figure}

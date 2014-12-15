@@ -40,9 +40,9 @@
      inkscape:window-height="1151"
      id="namedview855"
      showgrid="false"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="424.97899"
-     inkscape:cy="577.03271"
+     inkscape:zoom="2.8284272"
+     inkscape:cx="288.97937"
+     inkscape:cy="658.73337"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
@@ -437,7 +437,7 @@
     </g>
   </defs>
   <flowRoot
-     transform="matrix(0.80000003,0,0,0.80000003,-1.0729021,27.040531)"
+     transform="matrix(0.80000003,0,0,0.80000003,-0.8945773,28.640531)"
      style="font-size:15.88799953px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
      id="flowRoot4602"
      xml:space="preserve"><flowRegion
@@ -447,9 +447,9 @@
          height="22.860012"
          width="133.21867"
          id="rect4606" /></flowRegion><flowPara
-       style="font-size:14px;font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:CMU Classical Serif;-inkscape-font-specification:CMU Classical Serif Oblique"
+       style="font-size:13px;font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:CMU Classical Serif;-inkscape-font-specification:CMU Classical Serif Oblique"
        id="flowPara4608">Coinbase Transaction</flowPara></flowRoot>  <flowRoot
-     transform="matrix(0.80000003,0,0,0.80000003,242.76327,27.034892)"
+     transform="matrix(0.80000003,0,0,0.80000003,242.79748,28.634892)"
      style="font-size:15.88799953px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
      id="flowRoot4602-2"
      xml:space="preserve"><flowRegion
@@ -459,7 +459,7 @@
          height="22.860012"
          width="133.21867"
          id="rect4606-8" /></flowRegion><flowPara
-       style="font-size:14px;font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:CMU Classical Serif;-inkscape-font-specification:CMU Classical Serif Oblique"
+       style="font-size:13px;font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:CMU Classical Serif;-inkscape-font-specification:CMU Classical Serif Oblique"
        id="flowPara4608-6">Regular Transaction</flowPara></flowRoot>  <g
      transform="translate(0,-42.841858)"
      id="g5509">

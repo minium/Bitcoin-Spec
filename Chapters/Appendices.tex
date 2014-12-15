@@ -6,9 +6,13 @@
 
 \vspace{4pt}
 \begin{center}
-	\begin{tabularx}{\textwidth}{| c | c | X |}
+
+	\small
+	\begin{tabular}{| >{\centering} m{40pt} | >{\centering\arraybackslash} m{50pt} | m{240pt} |}
+		
 		\hline
-		\textbf{Type} & \textbf{Size (bytes)} & \textbf{Description} \\ \hline \hline
+		\textbf{Type} & \bigcell{c}{\textbf{Size} \\ \textbf{(Bytes)}} & \textbf{Description}\\ \hline \hline
+		
 		int & 4 & Signed integer in little-endian. \\ \hline
 		uint & 4 & Unsigned integer in little-endian. \\ \hline
 		uint8\_t & 1 & Unsigned integer. \\ \hline
@@ -17,27 +21,31 @@
 		uint64\_t & 8 & Unsigned integer in little-endian. \\ \hline
 		uint160 & 20 & Unsigned integer array uint32\_t[] of size 5. \newline Used for storing RIPEMD160 hashes as a byte array.\\ \hline
 		uint256 & 32 & Unsigned integer array uint32\_t[] of size 8. \newline Used for storing SHA256 hashes as a byte array.\\ \hline
-	\end{tabularx}
+	\end{tabular}
 \end{center}
 \vspace{10pt}
 
 \subsection*{Variable length integers (VarInt)}
-Integers in Bitcoin can be encoded depending on the value in order to save space. Variable length integers always precede vectors of a type of data that may vary in length. An overview of the different variable length integes is depicted below.
+Integers in Bitcoin can be encoded depending on the value in order to save space. Variable length integers always precede vectors of a type of data that may vary in length. An overview of the different variable length integers is depicted below.
 
+\renewcommand{\arraystretch}{1.25}
 \begin{center}
-\begin{tabular}{| C{0.3\linewidth} | C{0.1\linewidth} | C{0.5\linewidth} |}
-	\hline
-	\textbf{Value interval} & \bigcell{c}{\textbf{Size} \\ \textbf{(bytes)}} & \textbf{Format} \\ \hline \hline
-    $\left[{0,2^{8}-3}\right)$ & 1 & uint8\_t \\ \hline
-	$\left[2^{8}-3, 2^{16}\right)$ & 3 & 0xFD followed by the value as uint16\_t \\ \hline
-	$\left[2^{16}, 2^{32}\right)$ & 5 & 0xFE followed by the value as uint32\_t \\ \hline
-	$\left[2^{32}, 2^{64}\right)$ & 9 & 0xFF followed by the value as uint64\_t \\ \hline
-\end{tabular}
+	\small
+	\begin{tabular}{| >{\centering} m{60pt} | >{\centering} m{50pt} | m{180pt} |}
+		
+		\hline
+		\textbf{Value interval} & \bigcell{c}{\textbf{Size} \\ \textbf{(Bytes)}} & \textbf{Format} \\ \hline \hline
+	    
+	    $\left[{0,2^{8}-3}\right)$ & 1 & uint8\_t \\ \hline
+		$\left[2^{8}-3, 2^{16}\right)$ & 3 & 0xFD followed by the value as uint16\_t \\ \hline
+		$\left[2^{16}, 2^{32}\right)$ & 5 & 0xFE followed by the value as uint32\_t \\ \hline
+		$\left[2^{32}, 2^{64}\right)$ & 9 & 0xFF followed by the value as uint64\_t \\ \hline
+	\end{tabular}
 \end{center}
-
+\renewcommand{\arraystretch}{1}
 
 \clearpage
-\section{Calculations} \label{sec:Calculations}
+\section{Formulas} \label{sec:Formulas}
 
 \subsubsection*{Transaction Fees}
 The transaction fees \emph{TxFee} in Satoshi are calculated from the transaction size \emph{TxSize} in bytes and the transaction fee rate \emph{TxFeeRate} in Satoshi per kB as follows:
