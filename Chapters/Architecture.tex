@@ -209,7 +209,7 @@ Hence, whilst a transaction is uniquely identified by its hash, the specific out
 This field stores the length of the signature script field \textit{scriptSig} in bytes. It is encoded as a variable length integer (see \ref{sec:DataTypes}).
 
 \item[-] \textit{scriptSig}~\\
-The signature script field contains a response script corresponding to the challenge script (see \textit{scriptPubey} field) of the referenced transaction output (\textit{hash},\textit{n}). More precisely, whilst the challenge script specifies conditions under which the transaction output can be claimed, the response script is used to prove that the transaction is allowed to claim it. More details on transaction verification can be found in Sect. \ref{sec:Script}.
+The signature script field contains a response script corresponding to the challenge script (see \textit{scriptPubkey} field) of the referenced transaction output (\textit{hash},\textit{n}). More precisely, whilst the challenge script specifies conditions under which the transaction output can be claimed, the response script is used to prove that the transaction is allowed to claim it. More details on transaction verification can be found in Sect. \ref{sec:Script}.
 
 \item[-] \textit{nSequence}~\\
 This field stores the transaction input sequence number. It was once intended for multiple signers to agree to update a transaction before including it in a block. If a signer was done updating, he marked his transaction input as final by setting the sequence number to the highest 4-byte integer value $\texttt{0xFFFFFFFF}$. More details can be found in Sect. \ref{sec:TransactionStandardness} under the Final Transaction Rule.
